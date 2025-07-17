@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Md Ashikur</title>
+</head>
+<body style="text-align:center; margin-top: 50px; font-family: sans-serif;">
+
+  <h2>🔐 Login to Enter Website</h2>
+  <input type="email" id="email" placeholder="Enter Email"><br><br>
+  <input type="password" id="password" placeholder="Enter Password"><br><br>
+  <button onclick="login()">Login</button>
+  <button onclick="signup()">Sign Up</button>
+
+  <p id="message" style="color: green; font-weight: bold;"></p>
+
+  <!-- Firebase JS SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script>
+    // Firebase config from Ashik
+    const firebaseConfig = {
+      apiKey: "AIzaSyC37Qfvt4w0gw2GxK61K5x1HTx-EP6rpus",
+      authDomain: "ashik-website.firebaseapp.com",
+      projectId: "ashik-website",
+      storageBucket: "ashik-website.firebasestorage.app",
+      messagingSenderId: "606966648835",
+      appId: "1:606966648835:web:e7a543d8b15e8a7602fe36",
+      measurementId: "G-N1FS51RHV4"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    function login() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then(user => {
+          document.getElementById('message').innerText = "✅ Login Successful!";
+          // চাইলে redirect করতে পারো:
+          // window.location.href = "main.html";
+        })
+        .catch(error => {
+          document.getElementById('message').innerText = "❌ " + error.message;
+        });
+    }
+
+    function signup() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(user => {
+          document.getElementById('message').innerText = "✅ Account Created!";
+        })
+        .catch(error => {
+          document.getElementById('message').innerText = "❌ " + error.message;
+        });
+    }
+  </script>
+</body>
+</html>
